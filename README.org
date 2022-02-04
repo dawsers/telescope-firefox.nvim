@@ -15,7 +15,7 @@ The package also needs [[https://github.com/tami5/sqlite.lua][sqlite.lua]] to be
 containing bookmarks and history.
 
 
-** Installation anc Configuration
+** Installation and Configuration
 
 Install using [[https://github.com/junegunn/vim-plug][Plug]].
 
