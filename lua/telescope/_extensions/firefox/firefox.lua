@@ -1,6 +1,6 @@
 local ok, sqlite = pcall(require, "sqlite.db")
 if not ok then
-  error "Firefox depends on sqlite.lua (https://github.com/tami5/sqlite.lua)"
+  error "Firefox depends on sqlite.lua (https://github.com/kkharji/sqlite.lua)"
 end
 
 local pickers = require("telescope.pickers")

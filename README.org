@@ -11,7 +11,7 @@ search and open Firefox bookmarks and history. It can be downloaded
 
 =telescope-firefox.nvim= is an extension, so you need =telescope.nvim= to make it work.
 
-The package also needs [[https://github.com/tami5/sqlite.lua][sqlite.lua]] to be able to access the database
+The package also needs [[https://github.com/kkharji/sqlite.lua][sqlite.lua]] to be able to access the database
 containing bookmarks and history.
 
 
@@ -21,7 +21,7 @@ Install using [[https://github.com/junegunn/vim-plug][Plug]].
 
 #+BEGIN_SRC vim
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'tami5/sqlite.lua'
+Plug 'kkharji/sqlite.lua'
 Plug 'dawsers/telescope-firefox.nvim'
 #+END_SRC
 
