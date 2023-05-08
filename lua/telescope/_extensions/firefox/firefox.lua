@@ -56,17 +56,15 @@ local function make_search_line(v)
   return (v.LastDate or "") .. " " .. (v.Title or "") .. " " .. (v.Description or "") .. " " .. (v.URL or "")
 end
 
-local function url_opener()
-  return function(prompt_bufnr)
-    local picker = action_state.get_current_picker(prompt_bufnr)
-    -- If multi-selection, use those values, otherwise choose the selected entry
-    local selections = #picker:get_multi_selection() > 0 and picker:get_multi_selection() or { action_state.get_selected_entry() }
-    actions.close(prompt_bufnr)
-    for _, selection in ipairs(selections) do
-      local _, ret, stderr = utils.get_os_command_output { config.url_open_command, selection.value }
-      if ret ~= 0 then
-        print(string.format('Error when opening %s: "%s"', selection.value, table.concat(stderr, "  ")))
-      end
+local function url_opener(prompt_bufnr)
+  local picker = action_state.get_current_picker(prompt_bufnr)
+  -- If multi-selection, use those values, otherwise choose the selected entry
+  local selections = #picker:get_multi_selection() > 0 and picker:get_multi_selection() or { action_state.get_selected_entry() }
+  actions.close(prompt_bufnr)
+  for _, selection in ipairs(selections) do
+    local _, ret, stderr = utils.get_os_command_output { config.url_open_command, selection.value }
+    if ret ~= 0 then
+      print(string.format('Error when opening %s: "%s"', selection.value, table.concat(stderr, "  ")))
     end
   end
 end
@@ -144,8 +142,8 @@ firefox.history = function(opts)
     previewer = false,
     sorter = conf.generic_sorter(opts),
     attach_mappings = function(prompt_bufnr, map)
-      actions.select_default:replace(url_opener())
-      map('i', '<C-y>', function() copy_to_register(prompt_bufnr) end)
+      actions.select_default:replace(url_opener)
+      map('i', '<C-y>', copy_to_register)
       return true
     end,
   }):find()
@@ -193,8 +191,8 @@ firefox.bookmarks = function(opts)
     previewer = false,
     sorter = conf.generic_sorter(opts),
     attach_mappings = function(prompt_bufnr, map)
-      actions.select_default:replace(url_opener())
-      map('i', '<C-y>', function() copy_to_register(prompt_bufnr) end)
+      actions.select_default:replace(url_opener)
+      map('i', '<C-y>', copy_to_register)
       return true
     end,
   }):find()
@@ -241,8 +239,8 @@ firefox.search = function(opts)
     previewer = false,
     sorter = conf.generic_sorter(opts),
     attach_mappings = function(prompt_bufnr, map)
-      actions.select_default:replace(url_opener())
-      map('i', '<C-y>', function() copy_to_register(prompt_bufnr) end)
+      actions.select_default:replace(url_opener)
+      map('i', '<C-y>', copy_to_register)
       return true
     end,
   }):find()
