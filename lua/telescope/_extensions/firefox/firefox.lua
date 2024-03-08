@@ -91,15 +91,17 @@ end
 firefox.init = function(user_config)
   config = user_config
 
-  dbfile = vim.fn.globpath(config.firefox_profile_dir, config.firefox_profile_glob .. '/places.sqlite')
-  if not dbfile then
-    error "Cannot find Firefox database"
-  end
+  vim.schedule(function()
+    dbfile = vim.fn.globpath(config.firefox_profile_dir, config.firefox_profile_glob .. '/places.sqlite')
+    if not dbfile then
+      error "Cannot find Firefox database"
+    end
 
-  -- Make a temporary copy of the database in case Firefox is running and has
-  -- locked the database
-  dbcopy = vim.fn.tempname()
-  file_copy(dbfile, dbcopy)
+    -- Make a temporary copy of the database in case Firefox is running and has
+    -- locked the database
+    dbcopy = vim.fn.tempname()
+    file_copy(dbfile, dbcopy)
+  end)
 end
 
 local history_displayer = entry_display.create {
